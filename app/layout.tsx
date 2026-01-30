@@ -1,8 +1,8 @@
 import "@/styles/globals.css";
 
 import FilterDisplayProvider from "@/components/providers/FilterDisplay-provider";
-import Footer from "@/components/ui/Footer";
-import Header from "@/components/ui/Header";
+import Footer from "@/components/layouts/Footer";
+import Header from "@/components/layouts/Header";
 import type { Metadata } from "next";
 import Overlay from "@/components/ui/Overlay";
 import SortDisplayProvider from "@/components/providers/SortDisplay-provider";

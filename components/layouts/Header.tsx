@@ -1,5 +1,5 @@
 import Logo from "@/components/shared/Logo";
-import Navbar from "@/components/ui/Navbar";
+import Navbar from "@/components/layouts/components/Navbar";
 
 const Header = () => {
   return (

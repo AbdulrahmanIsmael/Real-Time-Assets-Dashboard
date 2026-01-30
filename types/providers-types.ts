@@ -14,3 +14,8 @@ export interface I_FilterDisplayContext {
   isFilterDisplay: boolean;
   toggleFilterDisplay: Dispatch<SetStateAction<boolean>>;
 }
+
+export interface I_GeneralDisplayContext {
+  isDisplay: boolean;
+  toggleDisplay: Dispatch<SetStateAction<boolean>>;
+}
