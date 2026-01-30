@@ -5,9 +5,11 @@ export interface I_Asset {
   type: string;
   sector: string;
   quantity: number;
-  buyPrice: number;
-  currentPrice: number;
-  currency: string;
+  price: number;
   volume: number;
   lastUpdated: string;
+}
+
+export interface I_AssetsState {
+  assets: I_Asset[];
 }

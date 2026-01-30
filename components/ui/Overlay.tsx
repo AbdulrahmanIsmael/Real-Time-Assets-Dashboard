@@ -10,7 +10,7 @@ const Overlay = () => {
   return (
     <>
       {(isSortDisplay || isFilterDisplay) && (
-        <div className="overlay absolute inset-0 bg-black/20"></div>
+        <div className="fixed inset-0 h-full bg-black/20"></div>
       )}
     </>
   );
