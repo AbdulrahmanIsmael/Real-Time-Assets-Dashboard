@@ -1,0 +1,76 @@
+"use client";
+
+import darkFilterImg from "@/public/assets/icons/filter-dark.png";
+import dynamic from "next/dynamic";
+import filterImg from "@/public/assets/icons/filter.png";
+import { tableHeadings } from "@/lib/constants/table-constants";
+import { useEffect } from "react";
+import useFilterDisplay from "@/hooks/useFilterDisplay";
+import useTheme from "@/hooks/useTheme";
+
+const Icon = dynamic(() => import("@/components/shared/Icon"));
+const Button = dynamic(() => import("@/components/shared/Button"));
+
+const FilterBox = () => {
+  const { theme } = useTheme();
+  const { isFilterDisplay, toggleFilterDisplay } = useFilterDisplay();
+
+  useEffect(() => {
+    const closeSortHandler = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+
+      if (!target.closest(".filter-box")) {
+        if (isFilterDisplay) toggleFilterDisplay(false);
+      }
+    };
+    document.body.addEventListener("click", closeSortHandler);
+
+    return () => document.body.removeEventListener("click", closeSortHandler);
+  }, [isFilterDisplay, toggleFilterDisplay]);
+
+  return (
+    <section className="filter-box max-sm:w-screen absolute top-1/2 left-1/2 -translate-1/2 bg-navbar-bg text-text-primary z-10 px-15 py-10 rounded-2xl flex flex-col gap-y-5">
+      <div className="flex items-center justify-between border-b border-borders pb-4">
+        <h3 className="flex items-center gap-3 text-xl sm:text-3xl lg:text-5xl font-semibold">
+          <Icon
+            srcLight={filterImg}
+            srcDark={darkFilterImg}
+            isDark={theme}
+            size={35}
+            title="sort icon"
+          />
+          Filter
+        </h3>
+
+        <Button
+          type="button"
+          style="text-4xl text-red-600"
+          onClickHandler={(e) => {
+            e.stopPropagation();
+            toggleFilterDisplay();
+          }}
+        >
+          &#x2716;
+        </Button>
+      </div>
+
+      <form className="flex flex-wrap items-center gap-y-10 gap-x-15">
+        {tableHeadings.map((heading, index) => (
+          <div className="flex gap-3 items-center" key={index}>
+            <input
+              type="checkbox"
+              id={heading}
+              name="filter"
+              className="accent-text-primary"
+            />
+            <label htmlFor={heading} className="text-2xl font-medium">
+              {heading[0].toUpperCase() + heading.slice(1)}
+            </label>
+          </div>
+        ))}
+      </form>
+    </section>
+  );
+};
+
+export default FilterBox;
