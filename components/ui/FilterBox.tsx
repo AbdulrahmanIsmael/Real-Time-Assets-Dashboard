@@ -54,20 +54,29 @@ const FilterBox = () => {
         </Button>
       </div>
 
-      <form className="flex flex-wrap items-center gap-y-10 gap-x-15">
-        {tableHeadings.map((heading, index) => (
-          <div className="flex gap-3 items-center" key={index}>
-            <input
-              type="checkbox"
-              id={heading}
-              name="filter"
-              className="accent-text-primary"
-            />
-            <label htmlFor={heading} className="text-2xl font-medium">
-              {heading[0].toUpperCase() + heading.slice(1)}
-            </label>
-          </div>
-        ))}
+      <form className="flex flex-col items-center gap-10">
+        <div className="flex flex-wrap items-center gap-y-10 gap-x-15">
+          {tableHeadings.map((heading, index) => (
+            <div className="flex gap-3 items-center" key={index}>
+              <input
+                type="checkbox"
+                id={heading}
+                name="filter"
+                className="accent-text-primary"
+              />
+              <label htmlFor={heading} className="text-2xl font-medium">
+                {heading[0].toUpperCase() + heading.slice(1)}
+              </label>
+            </div>
+          ))}
+        </div>
+
+        <Button
+          type="button"
+          style="text-navbar-bg bg-text-primary text-xl lg:text-2xl font-medium border-2 border-borders rounded-md px-4 py-1"
+        >
+          Filter
+        </Button>
       </form>
     </section>
   );

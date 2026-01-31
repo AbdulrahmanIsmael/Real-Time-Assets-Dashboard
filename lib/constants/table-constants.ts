@@ -3,6 +3,7 @@ export const tableHeadings: string[] = [
   "Symbol",
   "Type",
   "Price (USD)",
+  "Quantity",
   "Sector",
   "Volume",
   "Last Updated",
@@ -10,4 +11,4 @@ export const tableHeadings: string[] = [
 
 export const sortLabels: string[] = ["price", "quantity", "volume"];
 
-export const sortLevels: string[] = ["ascending", "descending", "none"];
+export const sortLevels: string[] = ["ascending", "descending"];

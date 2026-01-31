@@ -1,11 +1,12 @@
 "use client";
 
+import { ChangeEvent, useEffect, useState } from "react";
 import { sortLabels, sortLevels } from "@/lib/constants/table-constants";
 
 import darkSortImg from "@/public/assets/icons/sort-dark.png";
 import dynamic from "next/dynamic";
 import sortImg from "@/public/assets/icons/sort.png";
-import { useEffect } from "react";
+import useSortBy from "@/hooks/useSortBy";
 import useSortDisplay from "@/hooks/useSortDisplay";
 import useTheme from "@/hooks/useTheme";
 
@@ -14,8 +15,21 @@ const Icon = dynamic(() => import("@/components/shared/Icon"));
 
 const SortBox = () => {
   const { theme } = useTheme();
-  const { isSortDisplay, toggleSortDisplay } = useSortDisplay();
 
+  const { isSortDisplay, toggleSortDisplay } = useSortDisplay();
+  const { sortBy, setSortOrder } = useSortBy();
+
+  const [sortItem, setSortItem] = useState<string>("");
+  const [order, setOrder] = useState<string>("");
+
+  const handleChangeSort = (e: ChangeEvent<HTMLInputElement>) => {
+    setSortItem(e.target.value);
+  };
+  const handleChangeOrder = (e: ChangeEvent<HTMLInputElement>) => {
+    setOrder(e.target.value);
+  };
+
+  // handle document click event while displaying the box
   useEffect(() => {
     const closeSortHandler = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
@@ -56,35 +70,69 @@ const SortBox = () => {
       </div>
 
       <form className="flex flex-col items-center gap-y-10">
-        {sortLabels.map((label, index) => (
-          <div
-            className="flex flex-wrap items-center justify-between gap-5"
-            key={index}
-          >
-            <h4 className="text-2xl font-semibold">
-              By {label[0].toUpperCase() + label.slice(1)}
-            </h4>
-
-            <div className="flex flex-wrap items-center gap-8">
-              {sortLevels.map((level, indexLevel) => (
-                <div className="flex gap-3 items-center" key={indexLevel}>
-                  <input
-                    type="radio"
-                    id={`${label}-${level}`}
-                    name={label}
-                    className="accent-text-primary"
-                  />
-                  <label
-                    htmlFor={`${label}-${level}`}
-                    className="text-2xl font-medium"
-                  >
-                    {level[0].toUpperCase() + level.slice(1)}
-                  </label>
-                </div>
-              ))}
-            </div>
+        <div className="flex flex-wrap items-center justify-between gap-5">
+          <h4 className="text-3xl font-semibold">Sort By</h4>
+          <div className="flex flex-wrap items-center gap-8">
+            {sortLabels.map((label, index) => (
+              <div className="flex gap-3 items-center" key={index}>
+                <input
+                  type="radio"
+                  id={label}
+                  name="sort"
+                  value={label}
+                  checked={sortItem === label}
+                  onChange={handleChangeSort}
+                  className="accent-text-primary"
+                />
+                <label htmlFor={label} className="text-2xl font-medium">
+                  {label[0].toUpperCase() + label.slice(1)}
+                </label>
+              </div>
+            ))}
           </div>
-        ))}
+        </div>
+
+        <div className="flex flex-wrap items-center justify-between gap-5">
+          <h4 className="text-3xl font-semibold">Order</h4>
+          {sortLevels.map((level, index) => (
+            <div className="flex gap-3 items-center" key={index}>
+              <input
+                type="radio"
+                id={level}
+                name="order"
+                value={level}
+                checked={order === level}
+                onChange={handleChangeOrder}
+                className="accent-text-primary"
+              />
+              <label htmlFor={level} className="text-2xl font-medium">
+                {level[0].toUpperCase() + level.slice(1)}
+              </label>
+            </div>
+          ))}
+        </div>
+
+        <div className="flex flex-wrap justify-center items-center gap-x-5 gap-y-3">
+          <Button
+            type="button"
+            buttonType="button"
+            style="text-navbar-bg bg-text-primary text-xl lg:text-2xl font-medium border-2 border-borders rounded-md px-4 py-1"
+            onClickHandler={() => {
+              sortBy(sortItem);
+              setSortOrder(order);
+            }}
+          >
+            Sort
+          </Button>
+
+          <Button
+            type="button"
+            buttonType="reset"
+            style="bg-navbar-bg text-text-primary text-xl lg:text-2xl font-medium border-2 border-borders rounded-md px-4 py-1"
+          >
+            clear
+          </Button>
+        </div>
       </form>
     </section>
   );
