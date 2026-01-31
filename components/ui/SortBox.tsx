@@ -82,7 +82,7 @@ const SortBox = () => {
                   value={label}
                   checked={sortItem === label}
                   onChange={handleChangeSort}
-                  className="accent-text-primary"
+                  className="accent-primary"
                 />
                 <label htmlFor={label} className="text-2xl font-medium">
                   {label[0].toUpperCase() + label.slice(1)}
@@ -103,7 +103,7 @@ const SortBox = () => {
                 value={level}
                 checked={order === level}
                 onChange={handleChangeOrder}
-                className="accent-text-primary"
+                className="accent-primary"
               />
               <label htmlFor={level} className="text-2xl font-medium">
                 {level[0].toUpperCase() + level.slice(1)}

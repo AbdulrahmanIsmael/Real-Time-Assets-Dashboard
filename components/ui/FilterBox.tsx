@@ -1,10 +1,12 @@
 "use client";
 
+import { ChangeEvent, useEffect } from "react";
+
 import darkFilterImg from "@/public/assets/icons/filter-dark.png";
 import dynamic from "next/dynamic";
 import filterImg from "@/public/assets/icons/filter.png";
 import { tableHeadings } from "@/lib/constants/table-constants";
-import { useEffect } from "react";
+import useFilter from "@/hooks/useFilter";
 import useFilterDisplay from "@/hooks/useFilterDisplay";
 import useTheme from "@/hooks/useTheme";
 
@@ -13,8 +15,11 @@ const Button = dynamic(() => import("@/components/shared/Button"));
 
 const FilterBox = () => {
   const { theme } = useTheme();
-  const { isFilterDisplay, toggleFilterDisplay } = useFilterDisplay();
 
+  const { isFilterDisplay, toggleFilterDisplay } = useFilterDisplay();
+  const { filterAssets, filteredAssets } = useFilter();
+
+  // handle document click event to close the popup box
   useEffect(() => {
     const closeSortHandler = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
@@ -27,6 +32,12 @@ const FilterBox = () => {
 
     return () => document.body.removeEventListener("click", closeSortHandler);
   }, [isFilterDisplay, toggleFilterDisplay]);
+
+  const handleChangeFilter = (e: ChangeEvent<HTMLInputElement>) => {
+    const isChecked = e.target.checked;
+    const value = e.target.value;
+    filterAssets(value, isChecked ? "display" : "hide");
+  };
 
   return (
     <section className="filter-box max-sm:w-screen absolute top-1/2 left-1/2 -translate-1/2 bg-navbar-bg text-text-primary z-10 px-15 py-10 rounded-2xl flex flex-col gap-y-5">
@@ -56,27 +67,26 @@ const FilterBox = () => {
 
       <form className="flex flex-col items-center gap-10">
         <div className="flex flex-wrap items-center gap-y-10 gap-x-15">
-          {tableHeadings.map((heading, index) => (
-            <div className="flex gap-3 items-center" key={index}>
-              <input
-                type="checkbox"
-                id={heading}
-                name="filter"
-                className="accent-text-primary"
-              />
-              <label htmlFor={heading} className="text-2xl font-medium">
-                {heading[0].toUpperCase() + heading.slice(1)}
-              </label>
-            </div>
-          ))}
+          {tableHeadings.map((heading, index) => {
+            if (heading === "Name" || heading === "name") return;
+            return (
+              <div className="flex gap-3 items-center" key={index}>
+                <input
+                  type="checkbox"
+                  id={heading}
+                  value={heading}
+                  name="filter"
+                  className="accent-primary"
+                  checked={(filteredAssets as string[]).includes(heading)}
+                  onChange={handleChangeFilter}
+                />
+                <label htmlFor={heading} className="text-2xl font-medium">
+                  {heading}
+                </label>
+              </div>
+            );
+          })}
         </div>
-
-        <Button
-          type="button"
-          style="text-navbar-bg bg-text-primary text-xl lg:text-2xl font-medium border-2 border-borders rounded-md px-4 py-1"
-        >
-          Filter
-        </Button>
       </form>
     </section>
   );

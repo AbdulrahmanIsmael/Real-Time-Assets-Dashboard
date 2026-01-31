@@ -26,3 +26,8 @@ export interface I_SortContext {
   order: string;
   setOrder: (value: string) => void;
 }
+
+export interface I_FilterContext {
+  filter: string[];
+  setFilter: Dispatch<SetStateAction<string[]>>;
+}
