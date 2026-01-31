@@ -14,7 +14,7 @@ const Cards = async () => {
   cacheLife({ stale: 3600, revalidate: 86400, expire: 86400 });
 
   const dataFetched = await fetch(
-    `${process.env.NEXT_PUBLIC_BASEURL || "http://localhost:3000"}/api/cards`,
+    `${process.env.NEXT_PUBLIC_BASEURL}/api/cards`,
     { cache: "force-cache" },
   );
 
