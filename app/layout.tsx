@@ -6,6 +6,7 @@ import Header from "@/components/layouts/Header";
 import type { Metadata } from "next";
 import Overlay from "@/components/ui/Overlay";
 import SortDisplayProvider from "@/components/providers/SortDisplay-provider";
+import SortProvider from "@/components/providers/ٍSort-provider";
 import ThemeProvider from "@/components/providers/Theme-provider";
 import { montserrat } from "@/styles/fonts";
 
@@ -34,15 +35,17 @@ export default function RootLayout({
       >
         <FilterDisplayProvider>
           <SortDisplayProvider>
-            <ThemeProvider>
-              <Header />
-              <main className="flex-1">
-                <div className="container mx-auto">{children}</div>
-              </main>
-              <Footer />
-            </ThemeProvider>
+            <SortProvider>
+              <ThemeProvider>
+                <Header />
+                <main className="flex-1">
+                  <div className="container mx-auto">{children}</div>
+                </main>
+                <Footer />
+              </ThemeProvider>
 
-            <Overlay />
+              <Overlay />
+            </SortProvider>
           </SortDisplayProvider>
         </FilterDisplayProvider>
       </body>

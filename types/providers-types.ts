@@ -19,3 +19,10 @@ export interface I_GeneralDisplayContext {
   isDisplay: boolean;
   toggleDisplay: Dispatch<SetStateAction<boolean>>;
 }
+
+export interface I_SortContext {
+  sort: string;
+  setSort: (value: string) => void;
+  order: string;
+  setOrder: (value: string) => void;
+}
