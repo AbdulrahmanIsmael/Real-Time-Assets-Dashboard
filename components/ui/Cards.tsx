@@ -15,6 +15,7 @@ const Cards = async () => {
 
   const dataFetched = await fetch(
     `${process.env.NEXT_PUBLIC_BASEURL || "http://localhost:3000"}/api/cards`,
+    { cache: "force-cache" },
   );
 
   const cardsContent: I_Cards = await dataFetched.json();
