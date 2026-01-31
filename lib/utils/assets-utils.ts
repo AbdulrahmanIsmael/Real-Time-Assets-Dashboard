@@ -1,19 +1,23 @@
 import { I_Asset } from "@/types/data-types";
 import assets from "@/lib/db/assets-data";
 
-export async function GET() {
+export async function getAssets() {
+  return assets;
+}
+
+export async function getCardsContents() {
   const assetsArr = assets.assets;
   const numberofAssets = assetsArr.length;
   const totalValue = checkTotalValue(assetsArr);
   const totalProfitOrLoss = checkTotalProfitOrLoss(assetsArr);
   const bestAsset = checkBestAsset(assetsArr);
 
-  return Response.json({
+  return {
     numberofAssets,
     totalValue,
     totalProfitOrLoss,
     bestAsset,
-  });
+  };
 }
 
 function checkTotalValue(assets: I_Asset[]): number {
