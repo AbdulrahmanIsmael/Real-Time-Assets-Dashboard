@@ -2,7 +2,7 @@
 
 import { I_SortContext } from "@/types/providers-types";
 import { revalidateAssetsTag } from "@/app/actions";
-import { sortContext } from "@/components/providers/ٍSort-provider";
+import { sortContext } from "@/components/providers/logic/ٍSort-provider";
 import { useContext } from "react";
 import useSortDisplay from "@/hooks/useSortDisplay";
 
@@ -12,12 +12,17 @@ const useSortBy = () => {
 
   const sortBy = async (value: string) => {
     sort?.setSort(value);
-    await revalidateAssetsTag();
     toggleSortDisplay(false);
+    await revalidateAssetsTag();
   };
 
   const setSortOrder = (value: string) => {
     sort?.setOrder(value);
+  };
+
+  const resetSort = () => {
+    sort?.setSort("");
+    sort?.setOrder("");
   };
 
   return {
@@ -25,6 +30,7 @@ const useSortBy = () => {
     sortBy,
     order: sort?.order,
     setSortOrder,
+    resetSort,
   };
 };
 

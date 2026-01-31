@@ -1,8 +1,9 @@
 "use client";
 
 import { I_FilterContext } from "@/types/providers-types";
-import { filterContext } from "@/components/providers/Filter-provider";
+import { filterContext } from "@/components/providers/logic/Filter-provider";
 import { revalidateAssetsTag } from "@/app/actions";
+import { tableHeadings } from "@/lib/constants/table-constants";
 import { useContext } from "react";
 
 const useFilter = () => {
@@ -25,7 +26,11 @@ const useFilter = () => {
     await revalidateAssetsTag();
   };
 
-  return { filteredAssets: filter?.filter, filterAssets };
+  const resetFilter = () => {
+    (filter as I_FilterContext).setFilter(tableHeadings);
+  };
+
+  return { filteredAssets: filter?.filter, filterAssets, resetFilter };
 };
 
 export default useFilter;

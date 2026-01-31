@@ -1,14 +1,19 @@
 "use client";
 
 import Button from "@/components/shared/Button";
+import { ChangeEvent } from "react";
 import Icon from "@/components/shared/Icon";
 import darkFilterImg from "@/public/assets/icons/filter-dark.png";
 import darkSearchImg from "@/public/assets/icons/search-dark.png";
 import darkSortImg from "@/public/assets/icons/sort-dark.png";
 import filterImg from "@/public/assets/icons/filter.png";
+import { revalidateAssetsTag } from "@/app/actions";
 import searchImg from "@/public/assets/icons/search.png";
 import sortImg from "@/public/assets/icons/sort.png";
+import useFilter from "@/hooks/useFilter";
 import useFilterDisplay from "@/hooks/useFilterDisplay";
+import useSearchInput from "@/hooks/useSearchInput";
+import useSortBy from "@/hooks/useSortBy";
 import useSortDisplay from "@/hooks/useSortDisplay";
 import useTheme from "@/hooks/useTheme";
 
@@ -16,6 +21,15 @@ const Controls = () => {
   const { theme } = useTheme();
   const { toggleSortDisplay } = useSortDisplay();
   const { toggleFilterDisplay } = useFilterDisplay();
+  const { search, changeSearchValue } = useSearchInput();
+  const { resetSort } = useSortBy();
+  const { resetFilter } = useFilter();
+
+  const handleRevert = () => {
+    resetSort();
+    resetFilter();
+    revalidateAssetsTag();
+  };
 
   return (
     <section className="flex items-center justify-between w-full">
@@ -38,6 +52,10 @@ const Controls = () => {
           id="searchAsset"
           placeholder="Search For Asset"
           title="Search For Asset"
+          value={search}
+          onChange={(e: ChangeEvent<HTMLInputElement>) =>
+            changeSearchValue(e?.target?.value)
+          }
           className="border border-l-0 border-borders py-1 text-lg rounded-r-md bg-navbar-bg focus:outline-0"
         />
       </div>
@@ -72,6 +90,15 @@ const Controls = () => {
             title="filter icon"
           />
           Filter By
+        </Button>
+        <Button
+          type="button"
+          buttonType="button"
+          key="revert"
+          style="bg-text-primary text-background px-3 py-1 text-sm lg:text-lg font-medium rounded flex items-center gap-x-2"
+          onClickHandler={handleRevert}
+        >
+          Revert
         </Button>
       </div>
     </section>

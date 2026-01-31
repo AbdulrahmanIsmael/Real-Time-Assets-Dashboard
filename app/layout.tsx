@@ -1,14 +1,15 @@
 import "@/styles/globals.css";
 
-import FilterDisplayProvider from "@/components/providers/FilterDisplay-provider";
-import FilterProvider from "@/components/providers/Filter-provider";
+import FilterDisplayProvider from "@/components/providers/UI/FilterDisplay-provider";
+import FilterProvider from "@/components/providers/logic/Filter-provider";
 import Footer from "@/components/layouts/Footer";
 import Header from "@/components/layouts/Header";
 import type { Metadata } from "next";
 import Overlay from "@/components/ui/Overlay";
-import SortDisplayProvider from "@/components/providers/SortDisplay-provider";
-import SortProvider from "@/components/providers/ٍSort-provider";
-import ThemeProvider from "@/components/providers/Theme-provider";
+import SearchInputProvider from "@/components/providers/UI/SearchInput-provider";
+import SortDisplayProvider from "@/components/providers/UI/SortDisplay-provider";
+import SortProvider from "@/components/providers/logic/ٍSort-provider";
+import ThemeProvider from "@/components/providers/UI/Theme-provider";
 import { montserrat } from "@/styles/fonts";
 
 export const metadata: Metadata = {
@@ -38,15 +39,17 @@ export default function RootLayout({
           <SortDisplayProvider>
             <SortProvider>
               <FilterProvider>
-                <ThemeProvider>
-                  <Header />
-                  <main className="flex-1">
-                    <div className="container mx-auto">{children}</div>
-                  </main>
-                  <Footer />
-                </ThemeProvider>
+                <SearchInputProvider>
+                  <ThemeProvider>
+                    <Header />
+                    <main className="flex-1">
+                      <div className="container mx-auto">{children}</div>
+                    </main>
+                    <Footer />
+                  </ThemeProvider>
 
-                <Overlay />
+                  <Overlay />
+                </SearchInputProvider>
               </FilterProvider>
             </SortProvider>
           </SortDisplayProvider>

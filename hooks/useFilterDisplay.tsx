@@ -1,5 +1,5 @@
 import { I_FilterDisplayContext } from "@/types/providers-types";
-import { filterDisplayContext } from "@/components/providers/FilterDisplay-provider";
+import { filterDisplayContext } from "@/components/providers/UI/FilterDisplay-provider";
 import { useContext } from "react";
 
 const useFilterDisplay = () => {

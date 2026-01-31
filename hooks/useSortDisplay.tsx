@@ -1,5 +1,5 @@
 import { I_SortDisplayContext } from "@/types/providers-types";
-import { sortDisplayContext } from "@/components/providers/SortDisplay-provider";
+import { sortDisplayContext } from "@/components/providers/UI/SortDisplay-provider";
 import { useContext } from "react";
 
 const useSortDisplay = () => {
