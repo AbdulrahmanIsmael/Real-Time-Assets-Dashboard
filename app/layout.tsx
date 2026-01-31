@@ -1,6 +1,7 @@
 import "@/styles/globals.css";
 
 import FilterDisplayProvider from "@/components/providers/FilterDisplay-provider";
+import FilterProvider from "@/components/providers/Filter-provider";
 import Footer from "@/components/layouts/Footer";
 import Header from "@/components/layouts/Header";
 import type { Metadata } from "next";
@@ -36,15 +37,17 @@ export default function RootLayout({
         <FilterDisplayProvider>
           <SortDisplayProvider>
             <SortProvider>
-              <ThemeProvider>
-                <Header />
-                <main className="flex-1">
-                  <div className="container mx-auto">{children}</div>
-                </main>
-                <Footer />
-              </ThemeProvider>
+              <FilterProvider>
+                <ThemeProvider>
+                  <Header />
+                  <main className="flex-1">
+                    <div className="container mx-auto">{children}</div>
+                  </main>
+                  <Footer />
+                </ThemeProvider>
 
-              <Overlay />
+                <Overlay />
+              </FilterProvider>
             </SortProvider>
           </SortDisplayProvider>
         </FilterDisplayProvider>

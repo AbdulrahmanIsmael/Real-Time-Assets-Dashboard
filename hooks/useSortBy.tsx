@@ -14,8 +14,6 @@ const useSortBy = () => {
     sort?.setSort(value);
     await revalidateAssetsTag();
     toggleSortDisplay(false);
-    console.log(sort?.sort);
-    console.log(sort?.order);
   };
 
   const setSortOrder = (value: string) => {

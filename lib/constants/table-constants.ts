@@ -2,11 +2,11 @@ export const tableHeadings: string[] = [
   "Name",
   "Symbol",
   "Type",
-  "Price (USD)",
+  "Price",
   "Quantity",
   "Sector",
   "Volume",
-  "Last Updated",
+  "LastUpdated",
 ];
 
 export const sortLabels: string[] = ["price", "quantity", "volume"];
