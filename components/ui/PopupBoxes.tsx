@@ -1,11 +1,9 @@
 "use client";
 
-import dynamic from "next/dynamic";
+import FilterBox from "@/components/ui/FilterBox";
+import SortBox from "@/components/ui/SortBox";
 import useFilterDisplay from "@/hooks/useFilterDisplay";
 import useSortDisplay from "@/hooks/useSortDisplay";
-
-const FilterBox = dynamic(() => import("@/components/ui/FilterBox"));
-const SortBox = dynamic(() => import("@/components/ui/SortBox"));
 
 const PopupBoxes = () => {
   const { isSortDisplay } = useSortDisplay();

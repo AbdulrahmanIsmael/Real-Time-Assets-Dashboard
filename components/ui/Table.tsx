@@ -11,6 +11,9 @@ const Table = async () => {
 
   const dataFetched = await fetch(
     `${process.env.NEXT_PUBLIC_BASEURL || "http://localhost:3000"}/api/assets`,
+    {
+      cache: "force-cache",
+    },
   );
 
   const assets: I_AssetsState = await dataFetched.json();

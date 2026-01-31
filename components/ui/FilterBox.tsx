@@ -2,16 +2,14 @@
 
 import { ChangeEvent, useEffect } from "react";
 
+import Button from "@/components/shared/Button";
+import Icon from "@/components/shared/Icon";
 import darkFilterImg from "@/public/assets/icons/filter-dark.png";
-import dynamic from "next/dynamic";
 import filterImg from "@/public/assets/icons/filter.png";
 import { tableHeadings } from "@/lib/constants/table-constants";
 import useFilter from "@/hooks/useFilter";
 import useFilterDisplay from "@/hooks/useFilterDisplay";
 import useTheme from "@/hooks/useTheme";
-
-const Icon = dynamic(() => import("@/components/shared/Icon"));
-const Button = dynamic(() => import("@/components/shared/Button"));
 
 const FilterBox = () => {
   const { theme } = useTheme();

@@ -3,15 +3,13 @@
 import { ChangeEvent, useEffect, useState } from "react";
 import { sortLabels, sortLevels } from "@/lib/constants/table-constants";
 
+import Button from "@/components/shared/Button";
+import Icon from "@/components/shared/Icon";
 import darkSortImg from "@/public/assets/icons/sort-dark.png";
-import dynamic from "next/dynamic";
 import sortImg from "@/public/assets/icons/sort.png";
 import useSortBy from "@/hooks/useSortBy";
 import useSortDisplay from "@/hooks/useSortDisplay";
 import useTheme from "@/hooks/useTheme";
-
-const Button = dynamic(() => import("@/components/shared/Button"));
-const Icon = dynamic(() => import("@/components/shared/Icon"));
 
 const SortBox = () => {
   const { theme } = useTheme();
