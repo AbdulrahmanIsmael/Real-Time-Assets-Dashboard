@@ -1,3 +1,5 @@
+export const dynamic = "foce-dynamic";
+
 import { cacheLife, cacheTag } from "next/cache";
 
 import Card from "@/components/shared/Card";
@@ -15,7 +17,9 @@ const Cards = async () => {
 
   const dataFetched = await fetch(
     `${process.env.NEXT_PUBLIC_BASEURL}/api/cards`,
+    { cache: "force-cache" },
   );
+  if (!dataFetched.ok) throw new Error("Something Went Wrong!");
 
   const cardsContent: I_Cards = await dataFetched.json();
 
