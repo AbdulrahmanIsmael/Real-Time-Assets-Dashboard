@@ -11,7 +11,7 @@ const Card = ({
 }: {
   img: StaticImageData;
   title: string;
-  value?: string;
+  value?: string | number;
   result?: string;
   color?: string;
   size?: number | string;
@@ -29,11 +29,11 @@ const Card = ({
       </h3>
       <div className="bg-navbar-bg border border-borders min-h-30 min-w-56 px-5 py-3 rounded-xl flex flex-col justify-center gap-y-5 items-center text-center">
         <span
-          className={`${color} ${result ? "text-2xl" : "text-5xl"} font-bold`}
+          className={`${color} ${result ? "text-3xl" : "text-5xl"} font-bold`}
         >
           {value}
         </span>
-        <div className="text-2xl font-semibold">{result}</div>
+        {result && <div className="text-2xl font-semibold">{result}</div>}
       </div>
     </div>
   );

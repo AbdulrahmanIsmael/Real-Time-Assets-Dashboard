@@ -34,15 +34,31 @@ export const getAssetValue = (value: string | number) => {
       notation: "compact",
       currencyDisplay: "symbol",
       maximumFractionDigits: 1,
-    }).format(value as number);
+    }).format(+value);
   } else if (typeof value === "number" && value.toString().length < 6) {
     return new Intl.NumberFormat("en-US", {
       style: "currency",
       currency: "USD",
-    }).format(value as number);
+    }).format(+value);
   } else if (typeof value === "string" && value.match(dateRegex)) {
-    return new Date(value as string).toDateString();
+    return new Date(value).toDateString();
   } else {
     return value;
   }
+};
+
+export const checkSearchAsset = (search: string, asset: I_Asset): boolean => {
+  const assetValues = Object.values(asset);
+
+  for (const key in assetValues) {
+    if (key.toLowerCase() !== "id") {
+      const value = getAssetValue(assetValues[key]);
+      if (
+        value.toString().toLowerCase().includes(search.toString().toLowerCase())
+      )
+        return true;
+    }
+  }
+
+  return false;
 };

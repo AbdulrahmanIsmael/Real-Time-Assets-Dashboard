@@ -1,7 +1,7 @@
 "use client";
 
 import { I_ThemeContext } from "@/types/providers-types";
-import { themeContext } from "@/components/providers/Theme-provider";
+import { themeContext } from "@/components/providers/UI/Theme-provider";
 import { useContext } from "react";
 
 const useTheme = () => {

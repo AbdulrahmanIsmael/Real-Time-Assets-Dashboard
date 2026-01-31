@@ -1,6 +1,7 @@
 "use client";
 
 import {
+  checkSearchAsset,
   getAssetValue,
   getKeyNameCapitalized,
   sortAssets,
@@ -9,13 +10,19 @@ import {
 import { I_AssetsState } from "@/types/data-types";
 import { tableHeadings } from "@/lib/constants/table-constants";
 import useFilter from "@/hooks/useFilter";
+import useSearchInput from "@/hooks/useSearchInput";
 import useSortBy from "@/hooks/useSortBy";
 
 const AssetsTable = ({ assets }: { assets: I_AssetsState }) => {
   const { sort, order } = useSortBy();
   const { filteredAssets } = useFilter();
+  const { search } = useSearchInput();
 
-  const assetsData = sortAssets(assets, sort, order);
+  let assetsData = sortAssets(assets, sort, order);
+
+  if (search) {
+    assetsData = assetsData.filter((asset) => checkSearchAsset(search, asset));
+  }
 
   const visibleHeadings =
     !filteredAssets || filteredAssets.length === 0
@@ -37,25 +44,23 @@ const AssetsTable = ({ assets }: { assets: I_AssetsState }) => {
         </tr>
       </thead>
       <tbody>
-        {assetsData.map((asset, index) => {
-          return (
-            <tr
-              className="bg-navbar-bg text-text-primary text-sm sm:text-lg lg:text-xl font-medium"
-              key={index}
-            >
-              {visibleHeadings.map((key) => (
-                <td
-                  className={`py-4 px-2 border border-borders wrap-break-word`}
-                  key={`${key}-${asset.id}`}
-                >
-                  {getAssetValue(
-                    asset[getKeyNameCapitalized(key) as keyof typeof asset],
-                  )}
-                </td>
-              ))}
-            </tr>
-          );
-        })}
+        {assetsData.map((asset, index) => (
+          <tr
+            className="bg-navbar-bg text-text-primary text-sm sm:text-lg lg:text-xl font-medium"
+            key={index}
+          >
+            {visibleHeadings.map((key) => (
+              <td
+                className={`py-4 px-2 border border-borders wrap-break-word`}
+                key={`${key}-${asset.id}`}
+              >
+                {getAssetValue(
+                  asset[getKeyNameCapitalized(key) as keyof typeof asset],
+                )}
+              </td>
+            ))}
+          </tr>
+        ))}
       </tbody>
     </table>
   );

@@ -31,3 +31,8 @@ export interface I_FilterContext {
   filter: string[];
   setFilter: Dispatch<SetStateAction<string[]>>;
 }
+
+export interface I_SearchInputContext {
+  search: string;
+  setSearch: Dispatch<SetStateAction<string>>;
+}
